@@ -1,0 +1,23 @@
+all: linkcount step1 step2 step3
+
+linkcount:
+	javac -cp .:../hadoop-core-1.0.1.jar:../lib/* -d bin LinkCount.java XmlInputFormat.java
+	jar -cvf ./LinkCount.jar -C bin/ .
+
+step1:
+	javac -cp .:../hadoop-core-1.0.1.jar:../lib/* -d bin Step1.java XmlInputFormat.java
+	jar -cvf ./Step1.jar -C bin/ .
+
+step2:
+	javac -cp .:../hadoop-core-1.0.1.jar:../lib/* -d bin Step2.java
+	jar -cvf ./Step2.jar -C bin/ .
+
+step3:
+	javac -cp .:../hadoop-core-1.0.1.jar:../lib/* -d bin Step3.java
+	jar -cvf ./Step3.jar -C bin/ .
+
+xom:
+	javac -cp .:../hadoop-core-1.0.1.jar:../lib/* -d bin XOMtest.java
+	java -Xms1024m -Xmx1024m -cp .:../lib/*:bin/ edu.umich.cse.eecs485.XOMtest
+clean:
+	rm -rf *.jar bin/* output* invoutput
